@@ -1,0 +1,412 @@
+:root {
+    --primary-color: #4A6CFA;
+    --primary-light: #E9EFFF;
+    --secondary-color: #05CE91;
+    --accent-color: #FF6B6B;
+    --text-color: #333;
+    --text-light: #666;
+    --background-color: #f9f9f9;
+    --card-color: #fff;
+    --border-color: #eaeaea;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+header {
+    background-color: var(--card-color);
+    box-shadow: var(--shadow);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.logo {
+    width: 32px;
+    height: 32px;
+}
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.primary-btn:hover {
+    background-color: #3959d9;
+    transform: translateY(-2px);
+}
+.primary-btn:active {
+    transform: translateY(0);
+}
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    transition: var(--transition);
+    padding: 4px;
+    border-radius: 4px;
+}
+.icon-btn:hover {
+    color: var(--accent-color);
+    background-color: rgba(255, 107, 107, 0.1);
+}
+.icon {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+main {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    transition: var(--transition);
+}
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.empty-state h2 {
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+.empty-state p {
+    color: var(--text-light);
+}
+.subject {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+.subject.dragging {
+    opacity: 0.5;
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.subject-header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.subject-drag-handle {
+    cursor: grab;
+    color: var(--text-light);
+    margin-right: 12px;
+}
+.subject-drag-handle:active {
+    cursor: grabbing;
+}
+.subject-title-container {
+    flex: 1;
+}
+.subject-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    outline: none;
+    padding: 4px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+.subject-title:focus {
+    background-color: var(--primary-light);
+}
+.subject-actions {
+    display: flex;
+    gap: 8px;
+}
+.progress-container {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+}
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-value {
+    height: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+.progress-text {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    min-width: 36px;
+    text-align: right;
+}
+.tasks-container {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 320px;
+    padding: 8px 0;
+}
+.task {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    transition: var(--transition);
+    border-radius: 4px;
+    margin: 4px 8px;
+    background-color: var(--card-color);
+}
+.task:hover {
+    background-color: var(--primary-light);
+}
+.task.dragging {
+    opacity: 0.5;
+    background-color: var(--primary-light);
+}
+.task-drag-handle {
+    cursor: grab;
+    color: var(--text-light);
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+.task-drag-handle:active {
+    cursor: grabbing;
+}
+.task-checkbox {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--secondary-color);
+}
+.task-content {
+    flex: 1;
+    outline: none;
+    word-break: break-word;
+    transition: var(--transition);
+    padding: 4px;
+    border-radius: 4px;
+}
+.task-content:focus {
+    background-color: rgba(74, 108, 250, 0.1);
+}
+.task-completed .task-content {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+.add-task {
+    padding: 8px 16px 16px;
+}
+.add-task-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.add-task-btn:hover {
+    background-color: rgba(74, 108, 250, 0.2);
+}
+.drag-over {
+    outline: 2px dashed var(--primary-color);
+    background-color: var(--primary-light);
+}
+.toast {
+    visibility: hidden;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--text-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+@media (max-width: 768px) {
+    header {
+        padding: 12px 16px;
+    }
+    h1 {
+        font-size: 1.2rem;
+    }
+    main {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+        margin: 16px auto;
+    }
+    .subject-header {
+        padding: 12px;
+    }
+    .subject-title {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 480px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+    .task {
+        padding: 8px 12px;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.subject, .task {
+    animation: fadeIn 0.3s ease forwards;
+}
+.team-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-left: 10px;
+}
+.team-btn:hover {
+    background-color: #04b77f;
+    transform: translateY(-2px);
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+}
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--text-light);
+}
+.close-modal:hover {
+    color: var(--accent-color);
+}
+.team-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+.team-member {
+    background-color: var(--primary-light);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: var(--transition);
+}
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.team-member h3 {
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+.team-member p {
+    color: var(--text-light);
+    font-style: italic;
+}
+@media (max-width: 480px) {
+    .team-list {
+        grid-template-columns: 1fr;
+    }
+}

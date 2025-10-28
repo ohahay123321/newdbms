@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A task management app with drag-and-drop organization" />
+  <meta name="theme-color" content="#4A6CFA" />
+  <title>TaskMaster - An ACLC Coding Project</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="32" height="32">
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4A6CFA" />
+            <stop offset="100%" stop-color="#05CE91" />
+          </linearGradient>
+        </defs>
+        <rect x="70" y="70" width="372" height="372" rx="60" ry="60" fill="url(#gradient)" />
+        <g fill="#ffffff">
+          <path d="M215.5 290.5l-50-50c-5.5-5.5-14.3-5.5-19.8 0l-19.8 19.8c-5.5 5.5-5.5 14.3 0 19.8l79.8 79.8c5.5 5.5 14.3 5.5 19.8 0l139.6-139.6c5.5-5.5 5.5-14.3 0-19.8l-19.8-19.8c-5.5-5.5-14.3-5.5-19.8 0L215.5 290.5z" />
+          <rect x="140" y="130" width="232" height="30" rx="15" ry="15" />
+          <rect x="140" y="180" width="180" height="30" rx="15" ry="15" />
+        </g>
+      </svg>
+      <h1>TaskMaster PWA</h1>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button id="add-subject-btn" class="primary-btn">
+        <span class="icon">+</span> Add Subject
+      </button>
+      <button id="show-team-btn" class="team-btn">Group</button>
+    </div>
+  </header>
+
+  <!-- Team modal -->
+  <div id="team-modal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="team-title">
+      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <h2 id="team-title">Our Group</h2>
+      <div class="team-list">
+        <div class="team-member">
+          <h3>Irish Povadora</h3>
+        </div>
+        <div class="team-member">
+          <h3>Ivan Neis</h3>
+        </div>
+        <div class="team-member">
+          <h3>Jiemon Lambojon</h3>
+        </div>
+        <div class="team-member">
+          <h3>James Asistores</h3>
+        </div>
+        <div class="team-member">
+          <h3>Jane Barong</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="subjects-container">
+    <div id="empty-state" class="empty-state">
+      <h2>No subjects yet</h2>
+      <p>Click the "Add Subject" button to get started!</p>
+    </div>
+  </main>
+
+  <!-- Templates -->
+  <template id="subject-template">
+    <div class="subject" draggable="true">
+      <div class="subject-header">
+        <div class="subject-drag-handle" title="Drag to reorder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </div>
+        <div class="subject-title-container">
+          <h2 class="subject-title" contenteditable="true">New Subject</h2>
+        </div>
+        <div class="subject-actions">
+          <button class="delete-subject-btn icon-btn" title="Delete subject" aria-label="Delete subject">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-value" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">0%</div>
+      </div>
+
+      <div class="tasks-container"></div>
+
+      <div class="add-task">
+        <button class="add-task-btn">
+          <span class="icon">+</span> Add Task
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <template id="task-template">
+    <div class="task" draggable="true">
+      <div class="task-drag-handle" title="Drag to reorder">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
+      <input type="checkbox" class="task-checkbox" />
+      <div class="task-content" contenteditable="true">New Task</div>
+      <button class="delete-task-btn icon-btn" title="Delete task" aria-label="Delete task">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </template>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span id="toast-message"></span>
+  </div>
+
+  <!-- App logic -->
+  <script src="app.js" defer></script>
+
+  <!-- Register service worker (fallback if app.js didn't register) -->
+  <script>
+    // safe fallback registration
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').catch(err => {
+        // swallow errors silently if already registered elsewhere
+        console.warn('Service Worker registration (fallback) failed:', err);
+      });
+    }
+  </script>
+</body>
+</html>
