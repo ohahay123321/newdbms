@@ -155,5 +155,27 @@
       });
     }
   </script>
+
+<!-- Auth Modal -->
+<div id="auth-modal" class="modal" aria-hidden="false" style="display:flex;">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <h2 id="auth-title">Login</h2>
+    <form id="login-form" autocomplete="off">
+      <input type="text" id="login-username" placeholder="Username" required autocomplete="username"/>
+      <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password"/>
+      <button type="submit" class="primary-btn">Login</button>
+    </form>
+    <form id="register-form" autocomplete="off" style="display:none;">
+      <input type="text" id="register-username" placeholder="Username" required autocomplete="username"/>
+      <input type="password" id="register-password" placeholder="Password" required autocomplete="new-password"/>
+      <button type="submit" class="primary-btn">Register</button>
+    </form>
+    <div style="margin-top:12px;text-align:center;">
+      <span id="toggle-auth" style="color:var(--primary-color);cursor:pointer;">No account? Register here</span>
+      <div id="auth-error" style="color:var(--accent-color);margin-top:8px;"></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
