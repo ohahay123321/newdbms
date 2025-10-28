@@ -410,3 +410,41 @@ main {
         grid-template-columns: 1fr;
     }
 }
+#auth-model {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+}
+
+#auth-modal .modal-content {
+    min-width: 320px;
+    animation: modalFadeIn 0.3s;
+}
+#auth-modal input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    font-size: 1em;
+    transition: border-color 0.2s;
+}
+#auth-modal input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+#auth-modal .primary-btn {
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.2s;
+}
+#auth-modal .primary-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.04);
+}
